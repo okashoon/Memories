@@ -8,7 +8,7 @@ import java.util.UUID;
  */
 public class Memory {
     private UUID mID;
-    private String title;
+    private String mTitle;
     private Date mDate;
     private boolean mStarred;
 
@@ -23,11 +23,11 @@ public class Memory {
 
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.mTitle = title;
     }
 
     public Date getDate() {
@@ -44,5 +44,10 @@ public class Memory {
 
     public void setStarred(boolean starred) {
         mStarred = starred;
+    }
+
+    @Override
+    public String toString() {
+        return mTitle;
     }
 }
