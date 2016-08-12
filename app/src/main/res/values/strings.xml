@@ -6,5 +6,7 @@
     <string name="memory_title">Enter title for your memory</string>
     <string name="details_label">Details</string>
     <string name="starred_label">Starred</string>
+    <string name="memories_title">Memories</string>
+
 
 </resources>
