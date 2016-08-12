@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
+import java.util.UUID;
 
 
 /**
@@ -22,10 +23,12 @@ import java.text.SimpleDateFormat;
  */
 public class MemoryFragment extends Fragment {
 
+    public static final String EXTRA_CRIME_ID = "MemoryFragment.extra_crime_id";
+
     private Memory mMemory;
     private EditText mTitleField;
     private Button mDateButton;
-    private CheckBox mStarred;
+    private CheckBox mStarredCheckBox;
 
     public MemoryFragment() {
 
@@ -35,7 +38,9 @@ public class MemoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMemory = new Memory();
+        UUID id= (UUID)getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        mMemory =(MemoryJournal.get(getActivity())).getMemory(id);
+
 
     }
 
@@ -46,6 +51,7 @@ public class MemoryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_memory, container, false);
 
         mTitleField =(EditText) v.findViewById(R.id.memory_title);
+        mTitleField.setText(mMemory.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,8 +76,9 @@ public class MemoryFragment extends Fragment {
         mDateButton.setText(dateFormatted);
         mDateButton.setClickable(false);
 
-        mStarred = (CheckBox) v.findViewById(R.id.starred_checkbox);
-        mStarred.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mStarredCheckBox = (CheckBox) v.findViewById(R.id.starred_checkbox);
+        mStarredCheckBox.setChecked(mMemory.isStarred());
+        mStarredCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mMemory.setStarred(isChecked);

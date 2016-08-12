@@ -1,6 +1,7 @@
 package com.okasha.memories;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -60,6 +61,9 @@ public class MemoryListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Log.d(LOG,((MemoryAdapter)getListAdapter()).getItem(position).getTitle());
+        Memory m = ((MemoryAdapter)getListAdapter()).getItem(position);
+        Intent i = new Intent(getActivity(),MemoryActivity.class);
+        i.putExtra(MemoryFragment.EXTRA_CRIME_ID,m.getID());
+        startActivity(i);
     }
 }
