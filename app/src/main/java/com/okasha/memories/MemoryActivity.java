@@ -11,13 +11,10 @@ import java.util.UUID;
 public class MemoryActivity extends SingleFragmentActivity {
 
     @Override
-    protected Fragment getFragment() {
+    protected Fragment  getFragment() {
         UUID memoryID =(UUID) getIntent().getSerializableExtra(MemoryFragment.EXTRA_CRIME_ID);
-        Bundle args = new Bundle();
-        args.putSerializable(MemoryFragment.EXTRA_CRIME_ID,memoryID);
-        Fragment fragment = new MemoryFragment();
-        fragment.setArguments(args);
-        return fragment;
+
+        return MemoryFragment.newInstance(memoryID);
 
     }
 

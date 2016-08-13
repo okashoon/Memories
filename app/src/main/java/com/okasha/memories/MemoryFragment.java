@@ -36,6 +36,13 @@ public class MemoryFragment extends Fragment {
 
 
 
+    public static MemoryFragment newInstance(UUID id){
+        MemoryFragment fragment = new MemoryFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_CRIME_ID,id);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
