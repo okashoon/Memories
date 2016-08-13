@@ -12,7 +12,7 @@ public class MemoryActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment  getFragment() {
-        UUID memoryID =(UUID) getIntent().getSerializableExtra(MemoryFragment.EXTRA_CRIME_ID);
+        UUID memoryID =(UUID) getIntent().getSerializableExtra(MemoryFragment.EXTRA_MEMORY_ID);
 
         return MemoryFragment.newInstance(memoryID);
 

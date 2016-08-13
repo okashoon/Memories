@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 public class MemoryFragment extends Fragment {
 
-    public static final String EXTRA_CRIME_ID = "MemoryFragment.extra_crime_id";
+    public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_crime_id";
 
     private Memory mMemory;
     private EditText mTitleField;
@@ -39,7 +39,7 @@ public class MemoryFragment extends Fragment {
     public static MemoryFragment newInstance(UUID id){
         MemoryFragment fragment = new MemoryFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_CRIME_ID,id);
+        args.putSerializable(EXTRA_MEMORY_ID,id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,7 +47,7 @@ public class MemoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID id=(UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
+        UUID id=(UUID) getArguments().getSerializable(EXTRA_MEMORY_ID);
         mMemory =(MemoryJournal.get(getActivity())).getMemory(id);
 
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -63,7 +64,15 @@ public class MemoryListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         Memory m = ((MemoryAdapter)getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(),MemoryActivity.class);
-        i.putExtra(MemoryFragment.EXTRA_CRIME_ID,m.getID());
+        i.putExtra(MemoryFragment.EXTRA_MEMORY_ID,m.getID());
         startActivity(i);
+    }
+
+
+    //to update the list
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MemoryAdapter)getListAdapter()).notifyDataSetChanged();
     }
 }
