@@ -35,10 +35,12 @@ public class MemoryFragment extends Fragment {
     }
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID id= (UUID)getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID id=(UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
         mMemory =(MemoryJournal.get(getActivity())).getMemory(id);
 
 
