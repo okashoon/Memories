@@ -63,7 +63,7 @@ public class MemoryListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Memory m = ((MemoryAdapter)getListAdapter()).getItem(position);
-        Intent i = new Intent(getActivity(),MemoryActivity.class);
+        Intent i = new Intent(getActivity(),MemoryPagerActivity.class);
         i.putExtra(MemoryFragment.EXTRA_MEMORY_ID,m.getID());
         startActivity(i);
     }

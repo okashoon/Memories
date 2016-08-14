@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 public class MemoryFragment extends Fragment {
 
-    public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_crime_id";
+    public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_memory_id";
 
     private Memory mMemory;
     private EditText mTitleField;
