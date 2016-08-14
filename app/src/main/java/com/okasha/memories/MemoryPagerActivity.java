@@ -12,7 +12,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class MemoryPagerActivity extends FragmentActivity {
+public class MemoryPagerActivity extends AppCompatActivity {
 
     private final String LOG = "MemoryPagerACtivity";
     private ViewPager mViewPager;
@@ -45,9 +45,32 @@ public class MemoryPagerActivity extends FragmentActivity {
             public int getCount() {
                 return mMemories.size();
             }
+
+
         };
 
+
+
         mViewPager.setAdapter(pagerAdapter);
+
+        //set the actionbar title to the memory selected
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setTitle(mMemories.get(position).getTitle());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        
         //set the current item in pagerview according to id sent through intent
         UUID id =(UUID) getIntent().getSerializableExtra(MemoryFragment.EXTRA_MEMORY_ID);
         for (Memory m : mMemories){
@@ -56,5 +79,8 @@ public class MemoryPagerActivity extends FragmentActivity {
                 break;
             }
         }
+
+
     }
+
 }
