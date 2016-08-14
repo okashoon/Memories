@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Memories</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="title_label">Title</string>
     <string name="memory_title">Enter title for your memory</string>
     <string name="details_label">Details</string>
     <string name="starred_label">Starred</string>
     <string name="memories_title">Memories</string>
+    <string name="date_picker_title">Date of memory</string>
 
 
 </resources>

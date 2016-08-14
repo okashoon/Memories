@@ -3,6 +3,7 @@ package com.okasha.memories;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -83,7 +84,15 @@ public class MemoryFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
         String dateFormatted = dateFormat.format(mMemory.getDate());
         mDateButton.setText(dateFormatted);
-        mDateButton.setClickable(false);
+
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment dateDialog = new DatePickerFragment();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                dateDialog.show(fm,DatePickerFragment.DIALOG_DATE);
+            }
+        });
 
         mStarredCheckBox = (CheckBox) v.findViewById(R.id.starred_checkbox);
         mStarredCheckBox.setChecked(mMemory.isStarred());
