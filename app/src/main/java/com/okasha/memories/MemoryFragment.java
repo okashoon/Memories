@@ -1,6 +1,8 @@
 package com.okasha.memories;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class MemoryFragment extends Fragment {
 
     public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_memory_id";
+    public static int REQUEST_DATE = 0;
 
     private Memory mMemory;
     private EditText mTitleField;
@@ -37,7 +40,15 @@ public class MemoryFragment extends Fragment {
 
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK) return;
+        if(requestCode==REQUEST_DATE){
+            Date d =(Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mMemory.setDate(d);
+            mDateButton.setText(mMemory.getDate().toString());
+        }
+    }
 
     public static MemoryFragment newInstance(UUID id){
         MemoryFragment fragment = new MemoryFragment();
@@ -92,6 +103,7 @@ public class MemoryFragment extends Fragment {
             public void onClick(View v) {
                 DatePickerFragment dateDialog = DatePickerFragment.newInstance(mMemory.getDate());
                 FragmentManager fm = getActivity().getSupportFragmentManager();
+                dateDialog.setTargetFragment(MemoryFragment.this,REQUEST_DATE);
                 dateDialog.show(fm, DatePickerFragment.DIALOG_DATE);
 
 
