@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -88,9 +90,12 @@ public class MemoryFragment extends Fragment {
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerFragment dateDialog = new DatePickerFragment();
+                DatePickerFragment dateDialog = DatePickerFragment.newInstance(mMemory.getDate());
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                dateDialog.show(fm,DatePickerFragment.DIALOG_DATE);
+                dateDialog.show(fm, DatePickerFragment.DIALOG_DATE);
+
+
+
             }
         });
 
@@ -100,6 +105,7 @@ public class MemoryFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mMemory.setStarred(isChecked);
+
             }
         });
         return  v;
