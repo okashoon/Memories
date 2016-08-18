@@ -103,9 +103,8 @@ public class MemoryFragment extends Fragment {
             public void onClick(View v) {
                 DatePickerFragment dateDialog = DatePickerFragment.newInstance(mMemory.getDate());
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                dateDialog.setTargetFragment(MemoryFragment.this,REQUEST_DATE);
+                dateDialog.setTargetFragment(MemoryFragment.this, REQUEST_DATE);
                 dateDialog.show(fm, DatePickerFragment.DIALOG_DATE);
-
 
 
             }
@@ -118,6 +117,15 @@ public class MemoryFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mMemory.setStarred(isChecked);
 
+            }
+        });
+
+        Button mTakePicButton = (Button) v.findViewById(R.id.take_pic_button);
+        mTakePicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MemoryCameraActivity.class);
+                startActivity(intent);
             }
         });
         return  v;

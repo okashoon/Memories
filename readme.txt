@@ -1,0 +1,1 @@
+Memories is a photo album where you can save all of your favourite memories, pictured with their dates.

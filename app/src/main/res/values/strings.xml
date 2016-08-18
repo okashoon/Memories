@@ -6,6 +6,11 @@
     <string name="starred_label">Starred</string>
     <string name="memories_title">Memories</string>
     <string name="date_picker_title">Date of memory</string>
+    <string name="add_memory">Add memory</string>
+    <string name="delete_memory">Delete memory</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
