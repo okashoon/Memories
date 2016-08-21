@@ -3,6 +3,7 @@ package com.okasha.memories;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,9 +24,7 @@ import java.util.Date;
 import java.util.UUID;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MemoryFragment extends Fragment {
 
     public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_memory_id";
@@ -128,6 +127,11 @@ public class MemoryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Boolean hasCamera = Camera.getNumberOfCameras()>0;
+        if(!hasCamera){
+            mTakePicButton.setEnabled(false);
+        }
         return  v;
     }
 

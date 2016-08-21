@@ -1,6 +1,7 @@
 package com.okasha.memories;
 
 
+import android.content.Context;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,13 +14,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 
 public class MemoryCameraFragment extends Fragment {
 
     private Camera mCamera;
+    View mProgressContainer;
+
+    Camera.ShutterCallback  mShutterCallback = new Camera.ShutterCallback() {
+        @Override
+        public void onShutter() {
+            mProgressContainer.setVisibility(View.VISIBLE);
+        }
+    };
+
+    Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            String fileName = (UUID.randomUUID().toString())+".jpeg";
+            FileOutputStream os = null;
+            boolean success = true;
+
+            try {
+                os = getActivity().openFileOutput(fileName, Context.MODE_PRIVATE);
+                os.write(data);
+            } catch (Exception e) {
+                Log.d("aaa","Error writing to file" + fileName, e);
+                success = false;
+            } finally {
+                try {
+                    if (os != null) {
+                        os.close();
+                    }
+                } catch (Exception e){
+                    Log.d("aaa","cant close file" +fileName ,e);
+                    success = false;
+                }
+            }
+            if(success){
+                Log.d("aaa", " file successfully saved" + fileName);
+            }
+            getActivity().finish();
+
+        }
+    };
 
 
     public MemoryCameraFragment() {
@@ -37,7 +80,7 @@ public class MemoryCameraFragment extends Fragment {
         if (mCamera != null){
             mCamera.release();
             mCamera = null;
-            Log.d("aaa","onPuase");
+
         }
     }
 
@@ -53,7 +96,9 @@ public class MemoryCameraFragment extends Fragment {
         mTakePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                if(mCamera != null) {
+                    mCamera.takePicture(mShutterCallback, null, mPictureCallback);
+                }
             }
         });
 
@@ -94,11 +139,14 @@ public class MemoryCameraFragment extends Fragment {
 
                 if (mCamera != null) {
                     mCamera.stopPreview();
-                    Log.d("aaa", "surface destroyed");
+
                 }
 
             }
         });
+
+        mProgressContainer = v.findViewById(R.id.memory_camera_progressContainer);
+        mProgressContainer.setVisibility(View.INVISIBLE);
 
         return  v;
     }
