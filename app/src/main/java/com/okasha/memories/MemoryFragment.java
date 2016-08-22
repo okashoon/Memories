@@ -3,6 +3,9 @@ package com.okasha.memories;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,11 +33,14 @@ public class MemoryFragment extends Fragment {
 
     public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_memory_id";
     public static int REQUEST_DATE = 0;
+    public static int REQUEST_PIC = 1;
+
 
     private Memory mMemory;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mStarredCheckBox;
+    private ImageView mImageView;
 
     public MemoryFragment() {
 
@@ -47,8 +54,17 @@ public class MemoryFragment extends Fragment {
             mMemory.setDate(d);
             mDateButton.setText(mMemory.getDate().toString());
         }
+        if (requestCode==REQUEST_PIC){
+            String fileName = data.getStringExtra(MemoryCameraFragment.EXTRA_PIC_FILENAME);
+            Photo p = new Photo(fileName);
+            mMemory.setPhoto(p);
+            Log.d("aaa", "memory " + mMemory.getTitle() + " has got a picture");
+            showPhoto();
+        }
     }
 
+    //dont use constructor with memory as parameter with fragments, because when it is re-instantiated by the activity
+    //the empty comstructor will be called
     public static MemoryFragment newInstance(UUID id){
         MemoryFragment fragment = new MemoryFragment();
         Bundle args = new Bundle();
@@ -124,7 +140,7 @@ public class MemoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MemoryCameraActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_PIC);
             }
         });
 
@@ -132,7 +148,30 @@ public class MemoryFragment extends Fragment {
         if(!hasCamera){
             mTakePicButton.setEnabled(false);
         }
+
+        mImageView =(ImageView) v.findViewById(R.id.memory_imageView);
         return  v;
     }
 
+    public void showPhoto(){
+        Photo p = mMemory.getPhoto();
+        BitmapDrawable b = null;
+        if(p!=null){
+            String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+            b = PictureUtils.getScaledImage(getActivity(),path);
+        }
+        mImageView.setImageDrawable(b);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showPhoto();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        PictureUtils.cleanImageView(mImageView);
+    }
 }

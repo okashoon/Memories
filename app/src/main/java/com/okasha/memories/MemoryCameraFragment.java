@@ -1,7 +1,9 @@
 package com.okasha.memories;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import java.util.UUID;
 
 
 public class MemoryCameraFragment extends Fragment {
+    public static final String EXTRA_PIC_FILENAME = "com.okasha.memories.pic_filename";
 
     private Camera mCamera;
     View mProgressContainer;
@@ -58,6 +61,9 @@ public class MemoryCameraFragment extends Fragment {
             }
             if(success){
                 Log.d("aaa", " file successfully saved" + fileName);
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_PIC_FILENAME, fileName);
+                getActivity().setResult(Activity.RESULT_OK,intent);
             }
             getActivity().finish();
 
@@ -73,6 +79,8 @@ public class MemoryCameraFragment extends Fragment {
         super.onResume();
         mCamera = Camera.open(0);
     }
+
+
 
     @Override
     public void onPause() {

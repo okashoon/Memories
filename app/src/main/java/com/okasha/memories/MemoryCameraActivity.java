@@ -20,6 +20,7 @@ public class MemoryCameraActivity extends SingleFragmentActivity {
         super.onCreate(savedInstanceState);
 
 
+
     }
 
     @Override
