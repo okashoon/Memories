@@ -2,12 +2,15 @@ package com.okasha.memories;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -34,6 +37,7 @@ public class MemoryFragment extends Fragment {
     public static final String EXTRA_MEMORY_ID = "MemoryFragment.extra_memory_id";
     public static int REQUEST_DATE = 0;
     public static int REQUEST_PIC = 1;
+    private static final String DIALOG_IMAGE = "image";
 
 
     private Memory mMemory;
@@ -150,6 +154,17 @@ public class MemoryFragment extends Fragment {
         }
 
         mImageView =(ImageView) v.findViewById(R.id.memory_imageView);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Photo p = mMemory.getPhoto();
+                if(p==null) return;
+                String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+                DialogFragment dialog = ImageFragment.newInstance(path);
+                dialog.show(getFragmentManager(),DIALOG_IMAGE);
+
+            }
+        });
         return  v;
     }
 
