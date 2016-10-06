@@ -11,4 +11,8 @@ public class MemoryListActivity extends SingleFragmentActivity {
     protected Fragment getFragment(){
         return new MemoryListFragment();
     }
+
+
+
 }
+

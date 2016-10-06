@@ -158,11 +158,19 @@ public class MemoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Photo p = mMemory.getPhoto();
-                if(p==null) return;
+                if (p == null) return;
                 String path = getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
                 DialogFragment dialog = ImageFragment.newInstance(path);
-                dialog.show(getFragmentManager(),DIALOG_IMAGE);
+                dialog.show(getFragmentManager(), DIALOG_IMAGE);
 
+            }
+        });
+
+        Button doneButton =(Button) v.findViewById(R.id.done_button);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStop();
             }
         });
         return  v;

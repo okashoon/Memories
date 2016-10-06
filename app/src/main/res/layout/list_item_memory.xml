@@ -19,7 +19,8 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:textStyle="bold"
-        android:text="aaa"/>
+        android:text="aaa"
+        android:textColor="#ffffff"/>
     <TextView
         android:id="@+id/memory_list_item_dateTextView"
         android:layout_width="match_parent"
@@ -28,7 +29,8 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:textStyle="bold"
-        android:text="bbb"/>
+        android:text="bbb"
+        android:textColor="#ffffff"/>
 
 
 </RelativeLayout>

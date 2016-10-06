@@ -17,14 +17,8 @@ public class MemoryJournal {
     private MemoryJournal(Context appContext){
         mAppContext = appContext;
         mMemories = new ArrayList<Memory>();
-        //todo dummy data just for testing
-        for(int i = 0; i <30; i++){
-            Memory m = new Memory();
-            m.setTitle("memory no.: " + i);
-            m.setStarred(i%2 == 0);
-            mMemories.add(m);
-        }
-    };
+
+    }
 
 
     //get an instance of the memoryjournal singleton
@@ -49,4 +43,6 @@ public class MemoryJournal {
         }
         return null;
     }
+
+
 }

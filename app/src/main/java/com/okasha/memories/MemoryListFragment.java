@@ -71,6 +71,19 @@ public class MemoryListFragment extends Fragment {
         View v =inflater.inflate(R.layout.fragment_memory_list,null);
         TextView addMemoryTextView =(TextView) v.findViewById(R.id.add_place_tv);
 
+        addMemoryTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Memory m = new Memory();
+                    mMemories.add(m);
+                    Intent i = new Intent(getActivity(), MemoryPagerActivity.class);
+                    i.putExtra(MemoryFragment.EXTRA_MEMORY_ID, m.getID());
+                    startActivity(i);
+
+            }
+        });
+
         ListView memoriesListView = (ListView) v.findViewById(R.id.memories_list_view);
 
 
@@ -86,7 +99,6 @@ public class MemoryListFragment extends Fragment {
         });
         return v;
     }
-
 
 
 
