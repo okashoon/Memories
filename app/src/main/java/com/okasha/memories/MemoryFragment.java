@@ -170,7 +170,7 @@ public class MemoryFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onStop();
+                getActivity().onBackPressed();
             }
         });
         return  v;

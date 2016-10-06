@@ -10,9 +10,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/add_place_tv"
         android:textColor="#ffffff"
-        android:text="add memory..."
+        android:text="@string/add_memory"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
+        android:textSize="23sp"
         />
     <ListView
         android:layout_width="wrap_content"
